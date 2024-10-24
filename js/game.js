@@ -157,7 +157,9 @@ function purchaseUpgrade(upgrade) {
         moneyPerSecond += upgrade.profit; 
         moneyPerClick += upgrade.addClick;
         ecoScore = Math.max(0, Math.min(1, ecoScore + upgrade.ecoImpact));
+        
         updateUI();
+        checkGameOver();  
         console.log("Upgrade purchased successfully.");
     } else {
         console.log("Not enough money to purchase this upgrade.");
@@ -203,7 +205,7 @@ function startGame(){
 }
 
 function checkGameOver(){
-    if (ecoScore <= 0) {
+    if (ecoScore <= 0.001) {
         gameOverScreen.setVisible(true);
         upgrades.forEach((upgrade, index) => {
             upgrade.active = false;
