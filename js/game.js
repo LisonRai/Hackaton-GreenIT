@@ -26,8 +26,10 @@ let ecoMultiplier = 1;
 let upgrade1Button, upgrade2Button;
 
 let upgrades = [
-    { name: "upgrade1", cost: 20, ecoImpact: -0.5, profit: 2 },
-    { name: "upgrade2", cost: 30, ecoImpact: 0.3, profit: 1 }
+    { name: "upgrade1", cost: 20, ecoImpact: -0.5, profit: 0, addClick: 2 },
+    { name: "upgrade2", cost: 30, ecoImpact: 0.3, profit: 0 , addClick: 1},
+    { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 0},
+    { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0}
 ];
 
 // UI elements
@@ -38,8 +40,12 @@ function init() {}
 
 function preload() {
     this.load.image('building', './assets/images/building.png');
-    this.load.image('temp1', './assets/images/temp1.png');
-    this.load.image('temp2', './assets/images/temp2.png');
+
+    this.load.image('upgrade1', './assets/images/temp1.png');
+    this.load.image('upgrade2', './assets/images/temp2.png');
+    this.load.image('upgrade3', './assets/images/temp3.png');
+    this.load.image('upgrade4', './assets/images/temp4.png');
+
     this.load.image('bg0', './assets/images/bg0.png');
     this.load.image('bg25', './assets/images/bg25.png');
     this.load.image('bg50', './assets/images/bg50.png');
@@ -56,20 +62,28 @@ function create() {
     buildingButton.on('pointerdown', clickBuilding);
 
     // Create and assign upgrade buttons
-    upgrade1Button = this.add.image(100, 250, 'temp1').setInteractive();
+    upgrade1Button = this.add.image(100, 250, 'upgrade1').setInteractive();
     upgrade1Button.on('pointerdown', () => purchaseUpgrade(upgrades[0]));
     upgrades[0].button = upgrade1Button; 
 
-    upgrade2Button = this.add.image(300, 250, 'temp2').setInteractive();
+    upgrade2Button = this.add.image(300, 250, 'upgrade2').setInteractive();
     upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
     upgrades[1].button = upgrade2Button;
+
+    upgrade3Button = this.add.image(300, 250, 'upgrade3').setInteractive();
+    upgrade3Button.on('pointerdown', () => purchaseUpgrade(upgrades[2]));
+    upgrades[2].button = upgrade3Button;
+
+    upgrade4Button = this.add.image(300, 250, 'upgrade4').setInteractive();
+    upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
+    upgrades[3].button = upgrade4Button;
 
     moneyText = this.add.text(10, 10, 'Money: $0', { fontSize: '16px', fill: '#fff' });
     ecoScoreText = this.add.text(10, 30, 'Eco Score: 50%', { fontSize: '16px', fill: '#fff' });
 
     buildingTween = this.tweens.add({ 
         targets: buildingButton,    
-        scale: 1.2,            
+        scaleX: 1.2,            
         duration: 50,                 
         ease: 'Power2',          
         yoyo: true,      
