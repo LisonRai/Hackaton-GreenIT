@@ -18,7 +18,7 @@ let game = new Phaser.Game(config);
 
 let backgroundImage;
 let money = 0;
-let ecoScore = 0.1; 
+let ecoScore = 0.5; 
 let moneyPerClick = 1; 
 let moneyPerSecond = 0;
 let ecoMultiplier = 1; 
@@ -47,16 +47,18 @@ function preload() {
     this.load.image('gameover', './assets/images/gameover.png');
     this.load.image('intro', './assets/images/intro.png');
 
-    this.load.image('upgrade1', './assets/images/temp1.png');
-    this.load.image('upgrade2', './assets/images/temp2.png');
-    this.load.image('upgrade3', './assets/images/temp3.png');
-    this.load.image('upgrade4', './assets/images/temp4.png');
+    this.load.image('upgrade1', './assets/images/upgrade1.png');
+    this.load.image('upgrade2', './assets/images/upgrade2.png');
+    this.load.image('upgrade3', './assets/images/upgrade3.png');
+    this.load.image('upgrade4', './assets/images/upgrade4.png');
 
     this.load.image('bg0', './assets/images/bg0.png');
     this.load.image('bg25', './assets/images/bg25.png');
     this.load.image('bg50', './assets/images/bg50.png');
     this.load.image('bg75', './assets/images/bg75.png');
     this.load.image('bg100', './assets/images/bg100.png');
+
+    this.load.image('cursor', './assets/images/cursor.png');
 }
 
 function create() {
@@ -148,11 +150,8 @@ function purchaseUpgrade(upgrade) {
         money -= upgrade.cost;
 
         moneyPerSecond += upgrade.profit; 
-
         moneyPerClick += upgrade.addClick;
-
         ecoScore = Math.max(0, Math.min(1, ecoScore + upgrade.ecoImpact));
-
         updateUI();
         console.log("Upgrade purchased successfully.");
     } else {
