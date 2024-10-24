@@ -16,56 +16,93 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-
-
 let money = 0;
-let ecoScore = 0;
-let moneyPerClick = 1;
+let ecoScore = 0.5; 
+let moneyPerClick = 1; 
+let moneyPerSecond = 0;
+let ecoMultiplier = 1; 
 
-// //Coûts et bénéfices initiaux des achats polluants et écologiques
-// let upgradeCostPolluting = 20;
-// let upgradeCostEco = 30;
+let upgrade1Button, upgrade2Button;
 
-// //Impacts sur la jauge écologique
-// let pollutingPenalty = 6; //Diminution de l'écoresponsabilité pour les choix polluants
-// let ecoBonus = 4; //Augmentation de l'écoresponsabilité pour les choix
+let upgrades = [
+    { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 2, available: true},
+    { name: "upgrade2", cost: 30, ecoImpact: 0.1, profit: 1, available: true}
+];
 
-// //Ajouts  du shop
-// let shopPollutinItems = [];
-// let shopEcoItems =[];
+// UI elements
+let moneyText, ecoScoreText;
+let buildingTween;
 
-// //UI elements
-// let scoreText, ecoGaucheText, clickButton, shopButton;
-// let choiceAvailable = false;// Empêcher d'acheter plusieurs fois avant d'avoir l'argent
-
-let upgrade1 = {cost : 20, ecoImpact : -20, profit: 20, available : false }
-let upgrade1Button;
-
-function init(){
-
-}
+function init() {}
 
 function preload() {
-    this.load.image('building' , './assets/images/building.png');
-    this.load.image('tempButton' , './assets/images/temp.png');
+    this.load.image('building', './assets/images/building.png');
+    this.load.image('temp1', './assets/images/temp1.png');
+    this.load.image('temp2', './assets/images/temp2.png');
+    this.load.image('bg0', './assets/images/bg0.png');
+    this.load.image('bg25', './assets/images/bg25.png');
+    this.load.image('bg50', './assets/images/bg50.png');
+    this.load.image('bg75', './assets/images/bg75.png');
+    this.load.image('bg100', './assets/images/bg100.png');
 }
 
 function create() {
-    let upgrade1Button = this.add.image(0, 0, 'tempButton').setInteractive();
-    upgrade1Button.on('pointerdown', () => upgradeButtonDown(upgrade1));  // Pass a function reference
+
+    let backgroundImage = this.add.image(0, 0, 'bg50');
+    backgroundImage.setOrigin(0, 0);
 
     let buildingButton = this.add.image(150, 150, 'building').setInteractive();
     buildingButton.on('pointerdown', clickBuilding);
 
-}
-function update(){
+    // Create and assign upgrade buttons
+    upgrade1Button = this.add.image(100, 250, 'temp1').setInteractive();
+    upgrade1Button.on('pointerdown', () => purchaseUpgrade(upgrades[0]));
+    upgrades[0].button = upgrade1Button; 
+
+    upgrade2Button = this.add.image(300, 250, 'temp2').setInteractive();
+    upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
+    upgrades[1].button = upgrade2Button;
+
+    moneyText = this.add.text(10, 10, 'Money: $0', { fontSize: '16px', fill: '#fff' });
+    ecoScoreText = this.add.text(10, 30, 'Eco Score: 50%', { fontSize: '16px', fill: '#fff' });
+
+    buildingTween = this.tweens.add({ 
+        targets: buildingButton,    
+        scale: 1.2,            
+        duration: 50,                 // en mS
+        ease: 'Power2',          
+        yoyo: true,      
+        loop: 0
+        });
 
 }
 
-function upgradeButtonDown(upgrade){
-    console.log("click upgrade");
+
+function update(time, delta) {
+    money += (moneyPerSecond * delta) / 1000;
+    updateUI();
 }
 
-function clickBuilding(){
-    console.log("click building");
+function clickBuilding() {
+    money += moneyPerClick;
+    buildingTween.play();
+    updateUI();
+}
+
+function purchaseUpgrade(upgrade) {
+    if (money >= upgrade.cost && upgrade.available) {
+        money -= upgrade.cost;
+        moneyPerSecond += upgrade.profit; 
+        ecoScore = Math.max(0, Math.min(1, ecoScore + upgrade.ecoImpact));
+        upgrade.available = false; 
+        upgrade.button.alpha = 0.1;
+        updateUI();
+    } else {
+        console.log("Not enough money or upgrade already purchased");
+    }
+}
+
+function updateUI() {
+    moneyText.setText('Money: $' + Math.floor(money));
+    ecoScoreText.setText('Eco Score: ' + Math.floor(ecoScore * 100) + '%');
 }
