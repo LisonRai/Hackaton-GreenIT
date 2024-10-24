@@ -68,7 +68,8 @@ function create() {
     backgroundImage = this.add.image(0, 0, 'bg50');
     backgroundImage.setOrigin(0, 0);
 
-    let buildingButton = this.add.image(150, 150, 'building').setInteractive();
+    let buildingButton = this.add.image(84+53, 60+100, 'building').setInteractive();
+    buildingButton.setOrigin(0.5,0.5)
     buildingButton.on('pointerdown', clickBuilding);
 
     // Create and assign upgrade buttons
@@ -93,7 +94,8 @@ function create() {
 
     buildingTween = this.tweens.add({ 
         targets: buildingButton,    
-        scaleX: 1.2,            
+        scaleX: 1.03,            
+        scaleY: 1.12,            
         duration: 50,                 
         ease: 'Power2',    
         paused: true,      
@@ -193,7 +195,7 @@ function updateBackground() {
         backgroundImage.setTexture('bg25');
     } else if (ecoScorePercentage < 75) {
         backgroundImage.setTexture('bg50');
-    } else if (ecoScorePercentage < 100) {
+    } else if (ecoScorePercentage < 90) {
         backgroundImage.setTexture('bg75');
     } else {
         backgroundImage.setTexture('bg100');
