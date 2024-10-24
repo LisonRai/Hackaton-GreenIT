@@ -29,7 +29,9 @@ let upgrades = [
     { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 0, addClick: 2},
     { name: "upgrade2", cost: 30, ecoImpact: 0.05, profit: 0 , addClick: 1},
     { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 0},
-    { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0}
+    { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
+    { name: "upgrade5", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
+    { name: "upgrade6", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
 ];
 
 // UI elements
@@ -49,10 +51,12 @@ function preload() {
     this.load.image('gameover', './assets/images/gameover.png');
     this.load.image('intro', './assets/images/intro.png');
 
-    this.load.image('upgrade1', './assets/images/upgrade1.png');
-    this.load.image('upgrade2', './assets/images/upgrade2.png');
-    this.load.image('upgrade3', './assets/images/upgrade3.png');
-    this.load.image('upgrade4', './assets/images/upgrade4.png');
+    this.load.image('upgrade1', './assets/images/iconPollution.02.png');
+    this.load.image('upgrade2', './assets/images/iconEco.02.png');
+    this.load.image('upgrade3', './assets/images/iconPollution.01.png');
+    this.load.image('upgrade4', './assets/images/iconEco.01.png');
+    this.load.image('upgrade5', './assets/images/iconPollution.03.png');
+    this.load.image('upgrade6', './assets/images/iconEco.03.png');
 
     this.load.image('bg0', './assets/images/bg0.png');
     this.load.image('bg25', './assets/images/bg25.png');
@@ -61,6 +65,10 @@ function preload() {
     this.load.image('bg100', './assets/images/bg100.png');
 
     this.load.image('cursor', './assets/images/cursor.png');
+    this.load.image('jaugeEco', './assets/images/UI_JaugeEco.png');
+
+    this.load.image('moneyBar', './assets/images/UI_Money_background_01.png');
+    this.load.image('iconBar', './assets/images/UI_Icons_background_01.png');
 }
 
 function create() {
@@ -73,23 +81,44 @@ function create() {
     buildingButton.on('pointerdown', clickBuilding);
 
     // Create and assign upgrade buttons
-    upgrade1Button = this.add.image(100, 250, 'upgrade1').setInteractive();
+    moneyBarImage = this.add.image(265,6, 'iconBar');
+    moneyBarImage.setOrigin(0,0);
+
+    upgrade1Button = this.add.image(311, 34, 'upgrade1').setInteractive();
+    upgrade1Button.setOrigin(0,0)
     upgrade1Button.on('pointerdown', () => purchaseUpgrade(upgrades[0]));
     upgrades[0].button = upgrade1Button; 
-
-    upgrade2Button = this.add.image(200, 250, 'upgrade2').setInteractive();
+    
+    upgrade2Button = this.add.image(311, 184, 'upgrade2').setInteractive();
+    upgrade2Button.setOrigin(0,0)
     upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
     upgrades[1].button = upgrade2Button;
-
-    upgrade3Button = this.add.image(300, 250, 'upgrade3').setInteractive();
+    
+    upgrade3Button = this.add.image(358, 34, 'upgrade3').setInteractive();
+    upgrade3Button.setOrigin(0,0)
     upgrade3Button.on('pointerdown', () => purchaseUpgrade(upgrades[2]));
     upgrades[2].button = upgrade3Button;
-
-    upgrade4Button = this.add.image(400, 250, 'upgrade4').setInteractive();
+    
+    upgrade4Button = this.add.image(358, 184, 'upgrade4').setInteractive();
+    upgrade4Button.setOrigin(0,0)
     upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
     upgrades[3].button = upgrade4Button;
+    
+    upgrade5Button = this.add.image(405, 34, 'upgrade5').setInteractive();
+    upgrade5Button.setOrigin(0,0)
+    upgrade5Button.on('pointerdown', () => purchaseUpgrade(upgrades[4]));
+    upgrades[4].button = upgrade5Button;
+    
+    upgrade6Button = this.add.image(405, 184, 'upgrade6').setInteractive();
+    upgrade6Button.setOrigin(0,0)
+    upgrade6Button.on('pointerdown', () => purchaseUpgrade(upgrades[5]));
+    upgrades[5].button = upgrade6Button;
 
-    moneyText = this.add.text(10, 10, 'Money: $0', { fontSize: '16px', fill: '#fff' });
+    moneyBarImage = this.add.image(7,8, 'moneyBar');
+    moneyBarImage.setOrigin(0,0);
+
+
+    moneyText = this.add.text(26, 6, 'Money: $0', { fontSize: '16px', fill: '#fff' });
     ecoScoreText = this.add.text(10, 30, 'Eco Score: 50%', { fontSize: '16px', fill: '#fff' });
 
     buildingTween = this.tweens.add({ 
