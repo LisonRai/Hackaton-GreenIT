@@ -26,7 +26,7 @@ let ecoMultiplier = 1;
 let upgrade1Button, upgrade2Button;
 
 let upgrades = [
-    { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 0, addClick: 2 },
+    { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 0, addClick: 2},
     { name: "upgrade2", cost: 30, ecoImpact: 0.05, profit: 0 , addClick: 1},
     { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 0},
     { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0}
@@ -91,14 +91,30 @@ function create() {
         targets: buildingButton,    
         scaleX: 1.2,            
         duration: 50,                 
-        ease: 'Power2',          
+        ease: 'Power2',    
+        paused: true,      
         yoyo: true,      
         loop: 0
     });
 
+    upgrades.forEach((upgrade, index) => {
+        upgrade.tween = this.tweens.add({
+            targets: upgrade.button,
+            scale: 1.2,
+            duration: 50,
+            ease: 'Power2',
+            yoyo: true,
+            loop: 0,
+            paused: true,  
+        });
+        upgrade.active = true;
+    });
+
+
     introScreen = this.add.image(0, 0, 'intro').setInteractive(); 
     introScreen.on('pointerdown',startGame)
     introScreen.setOrigin(0,0);
+    introScreen.alpha = 0.8;
     introScreen.setVisible(true);
 
     gameOverScreen = this.add.image(0, 0, 'gameover'); 
@@ -116,6 +132,7 @@ function update(time, delta) {
     updateBackground();
     updateButtonAlpha(); // Continuously check button alpha as money changes
     checkGameOver()
+    checkButtonActive();
 }
 
 function clickBuilding() {
@@ -125,6 +142,8 @@ function clickBuilding() {
 }
 
 function purchaseUpgrade(upgrade) {
+    upgrade.tween.play();
+
     if (money >= upgrade.cost) {
         money -= upgrade.cost;
 
@@ -182,10 +201,15 @@ function startGame(){
 function checkGameOver(){
     if (ecoScore <= 0) {
         gameOverScreen.setVisible(true);
-        // upgrade1Button.setInteractive(false);
-        // upgrade2Button.setInteractive(false);
-        // upgrade3Button.setInteractive(false);
-        // upgrade4Button.setInteractive(false);
-    }
+        upgrades.forEach((upgrade, index) => {
+            upgrade.active = false;
+        });    }
 }
 
+function checkButtonActive(){
+    upgrades.forEach((upgrade, index) => {
+        if(upgrade.active == false){
+            upgrade.button.disableInteractive()
+        };
+    });    
+}
