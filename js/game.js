@@ -26,8 +26,8 @@ let ecoMultiplier = 1;
 let upgrade1Button, upgrade2Button;
 
 let upgrades = [
-    { name: "upgrade1", cost: 20, ecoImpact: -0.5, profit: 0, addClick: 2 },
-    { name: "upgrade2", cost: 30, ecoImpact: 0.3, profit: 0 , addClick: 1},
+    { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 0, addClick: 2 },
+    { name: "upgrade2", cost: 30, ecoImpact: 0.05, profit: 0 , addClick: 1},
     { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 0},
     { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0}
 ];
@@ -66,7 +66,7 @@ function create() {
     upgrade1Button.on('pointerdown', () => purchaseUpgrade(upgrades[0]));
     upgrades[0].button = upgrade1Button; 
 
-    upgrade2Button = this.add.image(300, 250, 'upgrade2').setInteractive();
+    upgrade2Button = this.add.image(200, 250, 'upgrade2').setInteractive();
     upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
     upgrades[1].button = upgrade2Button;
 
@@ -74,7 +74,7 @@ function create() {
     upgrade3Button.on('pointerdown', () => purchaseUpgrade(upgrades[2]));
     upgrades[2].button = upgrade3Button;
 
-    upgrade4Button = this.add.image(300, 250, 'upgrade4').setInteractive();
+    upgrade4Button = this.add.image(400, 250, 'upgrade4').setInteractive();
     upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
     upgrades[3].button = upgrade4Button;
 
@@ -110,8 +110,13 @@ function clickBuilding() {
 function purchaseUpgrade(upgrade) {
     if (money >= upgrade.cost) {
         money -= upgrade.cost;
+
         moneyPerSecond += upgrade.profit; 
+
+        moneyPerClick += upgrade.addClick;
+
         ecoScore = Math.max(0, Math.min(1, ecoScore + upgrade.ecoImpact));
+
         updateUI();
         console.log("Upgrade purchased successfully.");
     } else {
