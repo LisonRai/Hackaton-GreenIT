@@ -39,6 +39,8 @@ let buildingTween;
 let gameOverScreen;
 let introScreen;
 
+let cursor;
+
 function init() {}
 
 function preload() {
@@ -112,6 +114,8 @@ function create() {
         upgrade.active = true;
     });
 
+    cursor = this.add.image(174,39, 'cursor'); 
+    cursor.setOrigin(0,0);
 
     introScreen = this.add.image(0, 0, 'intro').setInteractive(); 
     introScreen.on('pointerdown',startGame)
@@ -135,6 +139,7 @@ function update(time, delta) {
     updateButtonAlpha(); // Continuously check button alpha as money changes
     checkGameOver()
     checkButtonActive();
+    adjustCursor(this);
 }
 
 function clickBuilding() {
@@ -211,4 +216,25 @@ function checkButtonActive(){
             upgrade.button.disableInteractive()
         };
     });    
+}
+
+function adjustCursor(scene) {
+    const targetX = 124 + ecoScore * 100;
+
+    // Check if the tween already exists
+    if (cursor.tween) {
+        // Update the tween target and play again
+        cursor.tween.updateTo('x', targetX, true);
+        cursor.tween.restart();
+    } else {
+        // Create the tween for the first time
+        cursor.tween = scene.tweens.add({
+            targets: cursor,
+            x: targetX,
+            duration: 500,  // Adjust the duration for smoothness
+            ease: 'Power2',
+            yoyo: false,
+            loop: 0
+        });
+    }
 }
