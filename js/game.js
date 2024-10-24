@@ -18,7 +18,7 @@ let game = new Phaser.Game(config);
 
 let backgroundImage;
 let money = 0;
-let ecoScore = 0.5; 
+let ecoScore = 0.1; 
 let moneyPerClick = 1; 
 let moneyPerSecond = 0;
 let ecoMultiplier = 1; 
@@ -36,10 +36,16 @@ let upgrades = [
 let moneyText, ecoScoreText;
 let buildingTween;
 
+let gameOverScreen;
+let introScreen;
+
 function init() {}
 
 function preload() {
     this.load.image('building', './assets/images/building.png');
+
+    this.load.image('gameover', './assets/images/gameover.png');
+    this.load.image('intro', './assets/images/intro.png');
 
     this.load.image('upgrade1', './assets/images/temp1.png');
     this.load.image('upgrade2', './assets/images/temp2.png');
@@ -90,6 +96,16 @@ function create() {
         loop: 0
     });
 
+    introScreen = this.add.image(0, 0, 'intro').setInteractive(); 
+    introScreen.on('pointerdown',startGame)
+    introScreen.setOrigin(0,0);
+    introScreen.setVisible(true);
+
+    gameOverScreen = this.add.image(0, 0, 'gameover'); 
+    gameOverScreen.setOrigin(0,0);
+    gameOverScreen.setVisible(false);
+
+    
     updateBackground();
     updateButtonAlpha(); // Initial check to set button transparency
 }
@@ -99,6 +115,7 @@ function update(time, delta) {
     updateUI();
     updateBackground();
     updateButtonAlpha(); // Continuously check button alpha as money changes
+    checkGameOver()
 }
 
 function clickBuilding() {
@@ -157,3 +174,18 @@ function updateBackground() {
         backgroundImage.setTexture('bg100');
     }
 }
+
+function startGame(){
+    introScreen.setVisible(false);
+}
+
+function checkGameOver(){
+    if (ecoScore <= 0) {
+        gameOverScreen.setVisible(true);
+        // upgrade1Button.setInteractive(false);
+        // upgrade2Button.setInteractive(false);
+        // upgrade3Button.setInteractive(false);
+        // upgrade4Button.setInteractive(false);
+    }
+}
+
