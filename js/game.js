@@ -16,6 +16,7 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+let backgroundImage;
 let money = 0;
 let ecoScore = 0.5; 
 let moneyPerClick = 1; 
@@ -25,8 +26,8 @@ let ecoMultiplier = 1;
 let upgrade1Button, upgrade2Button;
 
 let upgrades = [
-    { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 2, available: true},
-    { name: "upgrade2", cost: 30, ecoImpact: 0.1, profit: 1, available: true}
+    { name: "upgrade1", cost: 20, ecoImpact: -0.5, profit: 2, available: true},
+    { name: "upgrade2", cost: 30, ecoImpact: 0.3, profit: 1, available: true}
 ];
 
 // UI elements
@@ -48,7 +49,7 @@ function preload() {
 
 function create() {
 
-    let backgroundImage = this.add.image(0, 0, 'bg50');
+    backgroundImage = this.add.image(0, 0, 'bg50');
     backgroundImage.setOrigin(0, 0);
 
     let buildingButton = this.add.image(150, 150, 'building').setInteractive();
@@ -75,12 +76,14 @@ function create() {
         loop: 0
         });
 
+    updateBackground();
 }
 
 
 function update(time, delta) {
     money += (moneyPerSecond * delta) / 1000;
     updateUI();
+    updateBackground();
 }
 
 function clickBuilding() {
@@ -90,19 +93,41 @@ function clickBuilding() {
 }
 
 function purchaseUpgrade(upgrade) {
-    if (money >= upgrade.cost && upgrade.available) {
+    if (!upgrade.available) {
+        console.log("Upgrade already purchased.");
+        return; 
+    }
+
+    if (money >= upgrade.cost) {
         money -= upgrade.cost;
         moneyPerSecond += upgrade.profit; 
         ecoScore = Math.max(0, Math.min(1, ecoScore + upgrade.ecoImpact));
         upgrade.available = false; 
         upgrade.button.alpha = 0.1;
         updateUI();
+        console.log("Upgrade purchased successfully.");
     } else {
-        console.log("Not enough money or upgrade already purchased");
+        console.log("Not enough money to purchase this upgrade.");
     }
 }
 
 function updateUI() {
     moneyText.setText('Money: $' + Math.floor(money));
     ecoScoreText.setText('Eco Score: ' + Math.floor(ecoScore * 100) + '%');
+}
+
+function updateBackground() {
+    let ecoScorePercentage = ecoScore * 100; // Convert ecoScore to percentage
+
+    if (ecoScorePercentage < 25) {
+        backgroundImage.setTexture('bg0');
+    } else if (ecoScorePercentage < 50) {
+        backgroundImage.setTexture('bg25');
+    } else if (ecoScorePercentage < 75) {
+        backgroundImage.setTexture('bg50');
+    } else if (ecoScorePercentage < 100) {
+        backgroundImage.setTexture('bg75');
+    } else {
+        backgroundImage.setTexture('bg100');
+    }
 }
