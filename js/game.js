@@ -26,8 +26,8 @@ let ecoMultiplier = 1;
 let upgrade1Button, upgrade2Button;
 
 let upgrades = [
-    { name: "upgrade1", cost: 20, ecoImpact: -0.5, profit: 2, available: true},
-    { name: "upgrade2", cost: 30, ecoImpact: 0.3, profit: 1, available: true}
+    { name: "upgrade1", cost: 20, ecoImpact: -0.5, profit: 2 },
+    { name: "upgrade2", cost: 30, ecoImpact: 0.3, profit: 1 }
 ];
 
 // UI elements
@@ -70,7 +70,7 @@ function create() {
     buildingTween = this.tweens.add({ 
         targets: buildingButton,    
         scale: 1.2,            
-        duration: 50,                 // en mS
+        duration: 50,                 
         ease: 'Power2',          
         yoyo: true,      
         loop: 0
@@ -93,17 +93,10 @@ function clickBuilding() {
 }
 
 function purchaseUpgrade(upgrade) {
-    if (!upgrade.available) {
-        console.log("Upgrade already purchased.");
-        return; 
-    }
-
     if (money >= upgrade.cost) {
         money -= upgrade.cost;
         moneyPerSecond += upgrade.profit; 
         ecoScore = Math.max(0, Math.min(1, ecoScore + upgrade.ecoImpact));
-        upgrade.available = false; 
-        upgrade.button.alpha = 0.1;
         updateUI();
         console.log("Upgrade purchased successfully.");
     } else {
@@ -117,7 +110,7 @@ function updateUI() {
 }
 
 function updateBackground() {
-    let ecoScorePercentage = ecoScore * 100; // Convert ecoScore to percentage
+    let ecoScorePercentage = ecoScore * 100; 
 
     if (ecoScorePercentage < 25) {
         backgroundImage.setTexture('bg0');
