@@ -74,16 +74,17 @@ function create() {
         ease: 'Power2',          
         yoyo: true,      
         loop: 0
-        });
+    });
 
     updateBackground();
+    updateButtonAlpha(); // Initial check to set button transparency
 }
-
 
 function update(time, delta) {
     money += (moneyPerSecond * delta) / 1000;
     updateUI();
     updateBackground();
+    updateButtonAlpha(); // Continuously check button alpha as money changes
 }
 
 function clickBuilding() {
@@ -104,13 +105,26 @@ function purchaseUpgrade(upgrade) {
     }
 }
 
+// Update UI text
 function updateUI() {
     moneyText.setText('Money: $' + Math.floor(money));
     ecoScoreText.setText('Eco Score: ' + Math.floor(ecoScore * 100) + '%');
 }
 
+// Update button alpha based on whether the player can afford the upgrade
+function updateButtonAlpha() {
+    upgrades.forEach(upgrade => {
+        if (money >= upgrade.cost) {
+            upgrade.button.alpha = 1;  // Fully visible if the player can afford it
+        } else {
+            upgrade.button.alpha = 0.1; // Dimmed if the player cannot afford it
+        }
+    });
+}
+
+// Function to update the background based on ecoScore
 function updateBackground() {
-    let ecoScorePercentage = ecoScore * 100; 
+    let ecoScorePercentage = ecoScore * 100;
 
     if (ecoScorePercentage < 25) {
         backgroundImage.setTexture('bg0');
