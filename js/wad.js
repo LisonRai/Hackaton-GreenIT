@@ -37,7 +37,7 @@ let shopPollutinItems = [];
 let shopEcoItems =[];
 
 //UI elements
-let scoreText, ecoGaucheText, clickButton, shopButton;
+let scoreText, ecoGaugeText, clickButton, shopButton;
 let choiceAvailable = false;// Empêcher d'acheter plusieurs fois avant d'avoir l'argent
 function init() {
      
@@ -48,17 +48,26 @@ function preload() {
 }
 
 function create() {
-    
+    scoreText = this.add.text(10, 10, 'Profit: ' + score + '€', { fontSize: '16px', fill: '#000' });
+    ecoGaugeText = this.add.text(10, 30, 'Écoresponsabilité: ' + ecoGauge, { fontSize: '16px', fill: '#000' });
+    pointsText = this.add.text(10, 50, 'Points par clic: ' + pointsPerClick, { fontSize: '16px', fill: '#000' });
+
+    // Création d'un bouton qui correspond à un clic pour générer des points
+    let clickButton = this.add.text(150, 160, 'Cliquez ici', { fontSize: '20px', fill: '#056' });
+    clickButton.setInteractive();
+    clickButton.on('pointerdown', clickToProduce, this);  // Appelle onClick() à chaque clic
+    console.log("Le bouton est crée et est interactif");
 }
+
 //Augmentation du profit après un certain nombre de clic + fenetre choix d'achat
 
 function clickToProduce() {
        score += pointsPerClick;//Augmenter le profit avec chaque clic
        scoreText.setText('Profit: ' + score + '€');
-
+         console.log("Clic! Score actuel:" +score);
        //si le joueur a assez d'argent pour un achat polluant
        if (score>= upgradeCostPolluting && !choiceAvailable) {
-        offerUpgradeChoice();
+        offerUpgradeChoices();
        }
 
 }
@@ -120,7 +129,7 @@ function makeEcoFriendlyChoice(){
 //Fonction de mise à jour de l'affichage
 function update(){
     scoreText.setText('Profit: ' + score + '€');
-    ecoGaucheText.setText('Ecoresponsabilité: ' +ecoGauge);
+    ecoGaugeText.setText('Ecoresponsabilité: ' +ecoGauge);
 }
 
 //Fonction pour vérifier les conditions de fin de jeu
