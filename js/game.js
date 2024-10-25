@@ -65,6 +65,8 @@ function preload() {
     this.load.image('info5', './assets/images/info5.png');
     this.load.image('info6', './assets/images/info6.png');
 
+    this.load.image('iconOff', './assets/images/iconOff.png');
+
     this.load.image('bg0', './assets/images/bg0.png');
     this.load.image('bg25', './assets/images/bg25.png');
     this.load.image('bg50', './assets/images/bg50.png');
@@ -98,21 +100,21 @@ function create() {
     upgrade1Button.on('pointerover',() => showInfo(info1));
     upgrade1Button.on('pointerout',() => hideInfo(info1));
 
-    upgrade2Button = this.add.image(200, 250, 'upgrade2').setInteractive();
+    upgrade2Button = this.add.image(311, 184, 'upgrade2').setInteractive();
     upgrade2Button.setOrigin(0,0)
     upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
     upgrades[1].button = upgrade2Button;
     upgrade2Button.on('pointerover',() => showInfo(info2));
     upgrade2Button.on('pointerout',() => hideInfo(info2));
 
-    upgrade3Button = this.add.image(300, 250, 'upgrade3').setInteractive();
+    upgrade3Button = this.add.image(358, 34, 'upgrade3').setInteractive();
     upgrade3Button.setOrigin(0,0)
     upgrade3Button.on('pointerdown', () => purchaseUpgrade(upgrades[2]));
     upgrades[2].button = upgrade3Button;
     upgrade3Button.on('pointerover',() => showInfo(info3));
     upgrade3Button.on('pointerout',() => hideInfo(info3));
 
-    upgrade4Button = this.add.image(400, 250, 'upgrade4').setInteractive();
+    upgrade4Button = this.add.image(358, 184, 'upgrade4').setInteractive();
     upgrade4Button.setOrigin(0,0)
     upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
     upgrades[3].button = upgrade4Button;
@@ -132,6 +134,54 @@ function create() {
     upgrades[5].button = upgrade6Button;
     upgrade6Button.on('pointerover',() => showInfo(info6));
     upgrade6Button.on('pointerout',() => hideInfo(info6));
+
+    offButton1 = this.add.image(311, 74, 'iconOff');
+    offButton1.setOrigin(0,0)
+    offButton1.alpha=0.1;
+
+    offButton2 = this.add.image(358, 74, 'iconOff');
+    offButton2.setOrigin(0,0)
+    offButton2.alpha=0.1;
+
+    offButton3 = this.add.image(405, 74, 'iconOff');
+    offButton3.setOrigin(0,0)
+    offButton3.alpha=0.1;
+
+    offButton4 = this.add.image(311, 114, 'iconOff');
+    offButton4.setOrigin(0,0)
+    offButton4.alpha=0.1;
+
+    offButton5 = this.add.image(358, 114, 'iconOff');
+    offButton5.setOrigin(0,0)
+    offButton5.alpha=0.1;
+
+    offButton6 = this.add.image(405, 114, 'iconOff');
+    offButton6.setOrigin(0,0)
+    offButton6.alpha=0.1;
+
+    offButton7 = this.add.image(311, 224, 'iconOff');
+    offButton7.setOrigin(0,0)
+    offButton7.alpha=0.1;
+
+    offButton8 = this.add.image(358, 224, 'iconOff');
+    offButton8.setOrigin(0,0)
+    offButton8.alpha=0.1;
+
+    offButton9 = this.add.image(405, 224, 'iconOff');
+    offButton9.setOrigin(0,0)
+    offButton9.alpha=0.1;
+
+    offButton10 = this.add.image(311, 264, 'iconOff');
+    offButton10.setOrigin(0,0)
+    offButton10.alpha=0.1;
+
+    offButton11 = this.add.image(358, 264, 'iconOff');
+    offButton11.setOrigin(0,0)
+    offButton11.alpha=0.1;
+
+    offButton12 = this.add.image(405, 264, 'iconOff');
+    offButton12.setOrigin(0,0)
+    offButton12.alpha=0.1;
 
     info1 = this.add.image(upgrade1Button.x,upgrade1Button.y, 'info1');
     info1.setVisible(false);
