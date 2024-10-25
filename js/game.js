@@ -18,7 +18,7 @@ let game = new Phaser.Game(config);
 
 let backgroundImage;
 let money = 0;
-let ecoScore = 0.9; 
+let ecoScore = 0.5; 
 let moneyPerClick = 1; 
 let moneyPerSecond = 0;
 let ecoMultiplier = 1; 
