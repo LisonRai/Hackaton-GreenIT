@@ -54,6 +54,8 @@ function preload() {
     this.load.image('upgrade3', './assets/images/upgrade3.png');
     this.load.image('upgrade4', './assets/images/upgrade4.png');
 
+    this.load.image('info1', './assets/images/info1.png');
+
     this.load.image('bg0', './assets/images/bg0.png');
     this.load.image('bg25', './assets/images/bg25.png');
     this.load.image('bg50', './assets/images/bg50.png');
@@ -76,18 +78,25 @@ function create() {
     upgrade1Button = this.add.image(100, 250, 'upgrade1').setInteractive();
     upgrade1Button.on('pointerdown', () => purchaseUpgrade(upgrades[0]));
     upgrades[0].button = upgrade1Button; 
+    upgrade1Button.on('pointerover',() => showInfo(info1));
+    upgrade1Button.on('pointerout',() => hideInfo(info1));
 
     upgrade2Button = this.add.image(200, 250, 'upgrade2').setInteractive();
     upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
     upgrades[1].button = upgrade2Button;
+    upgrade2Button.on('pointerover',() => showInfo(2));
 
     upgrade3Button = this.add.image(300, 250, 'upgrade3').setInteractive();
     upgrade3Button.on('pointerdown', () => purchaseUpgrade(upgrades[2]));
     upgrades[2].button = upgrade3Button;
+    upgrade3Button.on('pointerover',() => showInfo(3));
 
     upgrade4Button = this.add.image(400, 250, 'upgrade4').setInteractive();
     upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
     upgrades[3].button = upgrade4Button;
+    upgrade4Button.on('pointerover',() => showInfo(4));
+
+    info1 = this.add.image(upgrade1Button.x,upgrade1Button.y, 'info1');
 
     moneyText = this.add.text(10, 10, 'Money: $0', { fontSize: '16px', fill: '#fff' });
     ecoScoreText = this.add.text(10, 30, 'Eco Score: 50%', { fontSize: '16px', fill: '#fff' });
@@ -131,14 +140,14 @@ function create() {
 
     
     updateBackground();
-    updateButtonAlpha(); // Initial check to set button transparency
+    updateButtonAlpha(); 
 }
 
 function update(time, delta) {
     money += (moneyPerSecond * delta) / 1000;
     updateUI();
     updateBackground();
-    updateButtonAlpha(); // Continuously check button alpha as money changes
+    updateButtonAlpha(); 
     checkGameOver()
     checkButtonActive();
     adjustCursor(this);
@@ -168,24 +177,21 @@ function purchaseUpgrade(upgrade) {
     }
 }
 
-// Update UI text
 function updateUI() {
     moneyText.setText('Money: $' + Math.floor(money));
     ecoScoreText.setText('Eco Score: ' + Math.floor(ecoScore * 100) + '%');
 }
 
-// Update button alpha based on whether the player can afford the upgrade
 function updateButtonAlpha() {
     upgrades.forEach(upgrade => {
         if (money >= upgrade.cost) {
-            upgrade.button.alpha = 1;  // Fully visible if the player can afford it
+            upgrade.button.alpha = 1;  
         } else {
-            upgrade.button.alpha = 0.1; // Dimmed if the player cannot afford it
+            upgrade.button.alpha = 0.1; 
         }
     });
 }
 
-// Function to update the background based on ecoScore
 function updateBackground() {
     let ecoScorePercentage = ecoScore * 100;
 
@@ -225,20 +231,25 @@ function checkButtonActive(){
 function adjustCursor(scene) {
     const targetX = 124 + ecoScore * 100;
 
-    // Check if the tween already exists
     if (cursor.tween) {
-        // Update the tween target and play again
         cursor.tween.updateTo('x', targetX, true);
         cursor.tween.restart();
     } else {
-        // Create the tween for the first time
         cursor.tween = scene.tweens.add({
             targets: cursor,
             x: targetX,
-            duration: 500,  // Adjust the duration for smoothness
+            duration: 500, 
             ease: 'Power2',
             yoyo: false,
             loop: 0
         });
     }
+}
+
+function showInfo(info){
+    info.setVisible(true);
+}
+
+function hideInfo(info){
+    info.setVisible(false);
 }
