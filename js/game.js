@@ -18,7 +18,7 @@ let game = new Phaser.Game(config);
 
 let backgroundImage;
 let money = 0;
-let ecoScore = 0.5; 
+let ecoScore = 0.9; 
 let moneyPerClick = 1; 
 let moneyPerSecond = 0;
 let ecoMultiplier = 1; 
@@ -28,10 +28,10 @@ let upgrade1Button, upgrade2Button;
 let upgrades = [
     { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 0, addClick: 2},
     { name: "upgrade2", cost: 30, ecoImpact: 0.05, profit: 0 , addClick: 1},
-    { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 1},
-    { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 1},
-    { name: "upgrade5", cost: 1000, ecoImpact: -0.5, profit: 20 , addClick: 2},
-    { name: "upgrade6", cost: 1500, ecoImpact: 0.2, profit: 10 , addClick: 2},
+    { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 0},
+    { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
+    { name: "upgrade5", cost: 1000, ecoImpact: -0.5, profit: 15 , addClick: 0},
+    { name: "upgrade6", cost: 1500, ecoImpact: 0.2, profit: 10 , addClick: 0},
 ];
 
 let moneyText, ecoScoreText;
@@ -182,18 +182,6 @@ function create() {
     offButton12.setOrigin(0,0)
     offButton12.alpha=0.1;
 
-    info1 = this.add.image(upgrade1Button.x,upgrade1Button.y, 'info1');
-    info1.setVisible(false);
-    info2 = this.add.image(upgrade2Button.x,upgrade2Button.y, 'info2');
-    info2.setVisible(false);
-    info3 = this.add.image(upgrade3Button.x,upgrade3Button.y, 'info3');
-    info3.setVisible(false);
-    info4 = this.add.image(upgrade4Button.x,upgrade4Button.y, 'info4');
-    info4.setVisible(false);
-    info5 = this.add.image(upgrade5Button.x,upgrade5Button.y, 'info5');
-    info5.setVisible(false);
-    info6 = this.add.image(upgrade6Button.x,upgrade6Button.y, 'info6');
-    info6.setVisible(false);
 
     moneyBarImage = this.add.image(7,8, 'moneyBar');
     moneyBarImage.setOrigin(0,0);
@@ -230,11 +218,29 @@ function create() {
         upgrade.active = true;
     });
 
-    gauge = this.add.image(124,38, 'jaugeEco'); 
+    gauge = this.add.image(124,39, 'jaugeEco'); 
     gauge.setOrigin(0,0);
-    cursor = this.add.image(174,39, 'cursor'); 
+    cursor = this.add.image(170,39, 'cursor'); 
     cursor.setOrigin(0,0);
 
+    info1 = this.add.image(upgrade1Button.x,upgrade1Button.y, 'info1');
+    info1.setOrigin(1,0);
+    info1.setVisible(false);
+    info2 = this.add.image(upgrade2Button.x,upgrade2Button.y, 'info2');
+    info2.setOrigin(1,0);
+    info2.setVisible(false);
+    info3 = this.add.image(upgrade3Button.x,upgrade3Button.y, 'info3');
+    info3.setOrigin(1,0);
+    info3.setVisible(false);
+    info4 = this.add.image(upgrade4Button.x,upgrade4Button.y, 'info4');
+    info4.setOrigin(1,0);
+    info4.setVisible(false);
+    info5 = this.add.image(upgrade5Button.x,upgrade5Button.y, 'info5');
+    info5.setOrigin(1,0);
+    info5.setVisible(false);
+    info6 = this.add.image(upgrade6Button.x,upgrade6Button.y, 'info6');
+    info6.setOrigin(1,0);
+    info6.setVisible(false);
 
     introScreen = this.add.image(0, 0, 'intro').setInteractive(); 
     introScreen.on('pointerdown',startGame)
@@ -337,7 +343,7 @@ function checkButtonActive(){
 }
 
 function adjustCursor(scene) {
-    const targetX = 124 + ecoScore * 100;
+    const targetX = 120 + ecoScore * 100;
 
     if (cursor.tween) {
         cursor.tween.updateTo('x', targetX, true);
