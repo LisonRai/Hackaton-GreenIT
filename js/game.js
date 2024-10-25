@@ -92,28 +92,28 @@ function create() {
     moneyBarImage = this.add.image(265,6, 'iconBar');
     moneyBarImage.setOrigin(0,0);
 
-    upgrade1Button = this.add.image(311, 34, 'upgrade1').setInteractive();
+    upgrade1Button = this.add.image(311, 34, 'upgrade3').setInteractive();
     upgrade1Button.setOrigin(0,0)
     upgrade1Button.on('pointerdown', () => purchaseUpgrade(upgrades[0]));
     upgrades[0].button = upgrade1Button; 
     upgrade1Button.on('pointerover',() => showInfo(info1));
     upgrade1Button.on('pointerout',() => hideInfo(info1));
 
-    upgrade2Button = this.add.image(311, 184, 'upgrade2').setInteractive();
+    upgrade2Button = this.add.image(311, 184, 'upgrade4').setInteractive();
     upgrade2Button.setOrigin(0,0)
     upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
     upgrades[1].button = upgrade2Button;
     upgrade2Button.on('pointerover',() => showInfo(info2));
     upgrade2Button.on('pointerout',() => hideInfo(info2));
 
-    upgrade3Button = this.add.image(358, 34, 'upgrade3').setInteractive();
+    upgrade3Button = this.add.image(358, 34, 'upgrade1').setInteractive();
     upgrade3Button.setOrigin(0,0)
     upgrade3Button.on('pointerdown', () => purchaseUpgrade(upgrades[2]));
     upgrades[2].button = upgrade3Button;
     upgrade3Button.on('pointerover',() => showInfo(info3));
     upgrade3Button.on('pointerout',() => hideInfo(info3));
 
-    upgrade4Button = this.add.image(358, 184, 'upgrade4').setInteractive();
+    upgrade4Button = this.add.image(358, 184, 'upgrade2').setInteractive();
     upgrade4Button.setOrigin(0,0)
     upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
     upgrades[3].button = upgrade4Button;
