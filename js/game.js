@@ -57,6 +57,8 @@ function preload() {
     this.load.image('upgrade4', './assets/images/iconEco.01.png');
     this.load.image('upgrade5', './assets/images/iconPollution.03.png');
     this.load.image('upgrade6', './assets/images/iconEco.03.png');
+    this.load.image('iconOff', './assets/images/iconOff.png');
+
 
     this.load.image('bg0', './assets/images/bg0.png');
     this.load.image('bg25', './assets/images/bg25.png');
@@ -113,6 +115,51 @@ function create() {
     upgrade6Button.setOrigin(0,0)
     upgrade6Button.on('pointerdown', () => purchaseUpgrade(upgrades[5]));
     upgrades[5].button = upgrade6Button;
+    
+    offButton1 = this.add.image(311, 74, 'iconOff');
+    offButton1.setOrigin(0,0)
+    offButton1.alpha=0.1;
+
+    offButton2 = this.add.image(358, 74, 'iconOff');
+    offButton2.setOrigin(0,0)
+    offButton2.alpha=0.1;
+
+    offButton3 = this.add.image(405, 74, 'iconOff');
+    offButton3.setOrigin(0,0)
+    offButton3.alpha=0.1;
+
+    offButton4 = this.add.image(405, 184, 'iconOff');
+    offButton4.setOrigin(0,0)
+    offButton4.alpha=0.1;
+
+    offButton5 = this.add.image(405, 184, 'iconOff');
+    offButton5.setOrigin(0,0)
+    offButton5.alpha=0.1;
+
+    offButton6 = this.add.image(405, 184, 'iconOff');
+    offButton6.setOrigin(0,0)
+    offButton6.alpha=0.1;
+
+    offButton7 = this.add.image(405, 184, 'iconOff');
+    offButton7.setOrigin(0,0)
+    offButton7.alpha=0.1;
+    
+    offButton8 = this.add.image(405, 184, 'iconOff');
+    offButton8.setOrigin(0,0)
+    offButton1.alpha=0.1;
+    offButton9 = this.add.image(405, 184, 'iconOff');
+    offButton9.setOrigin(0,0)
+    offButton1.alpha=0.1;
+    offButton10 = this.add.image(405, 184, 'iconOff');
+    offButton10.setOrigin(0,0)
+    offButton1.alpha=0.1;
+    offButton11 = this.add.image(405, 184, 'iconOff');
+    offButton11.setOrigin(0,0)
+    offButton1.alpha=0.1;
+    offButton12 = this.add.image(405, 184, 'iconOff');
+    offButton12.setOrigin(0,0)
+    offButton1.alpha=0.1;
+
 
     moneyBarImage = this.add.image(7,8, 'moneyBar');
     moneyBarImage.setOrigin(0,0);
