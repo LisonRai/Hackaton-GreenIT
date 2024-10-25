@@ -28,13 +28,12 @@ let upgrade1Button, upgrade2Button;
 let upgrades = [
     { name: "upgrade1", cost: 20, ecoImpact: -0.1, profit: 0, addClick: 2},
     { name: "upgrade2", cost: 30, ecoImpact: 0.05, profit: 0 , addClick: 1},
-    { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 0},
-    { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
-    { name: "upgrade5", cost: 500, ecoImpact: -0.5, profit: 20 , addClick: 0},
-    { name: "upgrade6", cost: 750, ecoImpact: 0.2, profit: 10 , addClick: 0},
+    { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 1},
+    { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 1},
+    { name: "upgrade5", cost: 1000, ecoImpact: -0.5, profit: 20 , addClick: 2},
+    { name: "upgrade6", cost: 1500, ecoImpact: 0.2, profit: 10 , addClick: 2},
 ];
 
-// UI elements
 let moneyText, ecoScoreText;
 let buildingTween;
 
@@ -231,7 +230,7 @@ function create() {
         upgrade.active = true;
     });
 
-    gauge = this.add.image(124,39, 'jaugeEco'); 
+    gauge = this.add.image(124,38, 'jaugeEco'); 
     gauge.setOrigin(0,0);
     cursor = this.add.image(174,39, 'cursor'); 
     cursor.setOrigin(0,0);
