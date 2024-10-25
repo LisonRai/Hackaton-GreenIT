@@ -30,8 +30,8 @@ let upgrades = [
     { name: "upgrade2", cost: 30, ecoImpact: 0.05, profit: 0 , addClick: 1},
     { name: "upgrade3", cost: 150, ecoImpact: -0.3, profit: 5 , addClick: 0},
     { name: "upgrade4", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
-    { name: "upgrade5", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
-    { name: "upgrade6", cost: 200, ecoImpact: 0.1, profit: 3 , addClick: 0},
+    { name: "upgrade5", cost: 500, ecoImpact: -0.5, profit: 20 , addClick: 0},
+    { name: "upgrade6", cost: 750, ecoImpact: 0.2, profit: 10 , addClick: 0},
 ];
 
 // UI elements
@@ -59,6 +59,11 @@ function preload() {
     this.load.image('upgrade6', './assets/images/iconEco.03.png');
 
     this.load.image('info1', './assets/images/info1.png');
+    this.load.image('info2', './assets/images/info2.png');
+    this.load.image('info3', './assets/images/info3.png');
+    this.load.image('info4', './assets/images/info4.png');
+    this.load.image('info5', './assets/images/info5.png');
+    this.load.image('info6', './assets/images/info6.png');
 
     this.load.image('bg0', './assets/images/bg0.png');
     this.load.image('bg25', './assets/images/bg25.png');
@@ -94,31 +99,53 @@ function create() {
     upgrade1Button.on('pointerout',() => hideInfo(info1));
 
     upgrade2Button = this.add.image(200, 250, 'upgrade2').setInteractive();
+    upgrade2Button.setOrigin(0,0)
     upgrade2Button.on('pointerdown', () => purchaseUpgrade(upgrades[1]));
     upgrades[1].button = upgrade2Button;
-    upgrade2Button.on('pointerover',() => showInfo(2));
+    upgrade2Button.on('pointerover',() => showInfo(info2));
+    upgrade2Button.on('pointerout',() => hideInfo(info2));
 
     upgrade3Button = this.add.image(300, 250, 'upgrade3').setInteractive();
+    upgrade3Button.setOrigin(0,0)
     upgrade3Button.on('pointerdown', () => purchaseUpgrade(upgrades[2]));
     upgrades[2].button = upgrade3Button;
-    upgrade3Button.on('pointerover',() => showInfo(3));
+    upgrade3Button.on('pointerover',() => showInfo(info3));
+    upgrade3Button.on('pointerout',() => hideInfo(info3));
+
 
     upgrade4Button = this.add.image(400, 250, 'upgrade4').setInteractive();
+    upgrade4Button.setOrigin(0,0)
     upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
     upgrades[3].button = upgrade4Button;
-    upgrade4Button.on('pointerover',() => showInfo(4));
+    upgrade4Button.on('pointerover',() => showInfo(info4));
+    upgrade4Button.on('pointerout',() => hideInfo(info4));
 
-    info1 = this.add.image(upgrade1Button.x,upgrade1Button.y, 'info1');
-        
     upgrade5Button = this.add.image(405, 34, 'upgrade5').setInteractive();
     upgrade5Button.setOrigin(0,0)
     upgrade5Button.on('pointerdown', () => purchaseUpgrade(upgrades[4]));
     upgrades[4].button = upgrade5Button;
+    upgrade5Button.on('pointerover',() => showInfo(info5));
+    upgrade5Button.on('pointerout',() => hideInfo(info5));
     
     upgrade6Button = this.add.image(405, 184, 'upgrade6').setInteractive();
     upgrade6Button.setOrigin(0,0)
     upgrade6Button.on('pointerdown', () => purchaseUpgrade(upgrades[5]));
     upgrades[5].button = upgrade6Button;
+    upgrade6Button.on('pointerover',() => showInfo(info6));
+    upgrade6Button.on('pointerout',() => hideInfo(info6));
+
+    info1 = this.add.image(upgrade1Button.x,upgrade1Button.y, 'info1');
+    info1.setVisible(false);
+    info2 = this.add.image(upgrade2Button.x,upgrade2Button.y, 'info2');
+    info2.setVisible(false);
+    info3 = this.add.image(upgrade3Button.x,upgrade3Button.y, 'info3');
+    info3.setVisible(false);
+    info4 = this.add.image(upgrade4Button.x,upgrade4Button.y, 'info4');
+    info4.setVisible(false);
+    info5 = this.add.image(upgrade5Button.x,upgrade5Button.y, 'info5');
+    info5.setVisible(false);
+    info6 = this.add.image(upgrade6Button.x,upgrade6Button.y, 'info6');
+    info6.setVisible(false);
 
     moneyBarImage = this.add.image(7,8, 'moneyBar');
     moneyBarImage.setOrigin(0,0);
