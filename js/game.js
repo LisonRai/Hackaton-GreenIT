@@ -112,7 +112,6 @@ function create() {
     upgrade3Button.on('pointerover',() => showInfo(info3));
     upgrade3Button.on('pointerout',() => hideInfo(info3));
 
-
     upgrade4Button = this.add.image(400, 250, 'upgrade4').setInteractive();
     upgrade4Button.setOrigin(0,0)
     upgrade4Button.on('pointerdown', () => purchaseUpgrade(upgrades[3]));
@@ -151,8 +150,12 @@ function create() {
     moneyBarImage.setOrigin(0,0);
 
 
-    moneyText = this.add.text(26, 6, 'Money: $0', { fontSize: '16px', fill: '#fff' });
-    ecoScoreText = this.add.text(10, 30, 'Eco Score: 50%', { fontSize: '16px', fill: '#fff' });
+    moneyText = this.add.text(45, 14, '$0', { 
+        fontFamily: 'Arial', 
+        fontSize: '16px', 
+        color: '#000000' 
+    });    
+    // ecoScoreText = this.add.text(10, 30, 'Eco Score: 50%', { fontSize: '16px', fill: '#fff' });
 
     buildingTween = this.tweens.add({ 
         targets: buildingButton,    
@@ -178,8 +181,8 @@ function create() {
         upgrade.active = true;
     });
 
-    jauge = this.add.image(124,39, 'jaugeEco'); 
-    jauge.setOrigin(0,0);
+    gauge = this.add.image(124,39, 'jaugeEco'); 
+    gauge.setOrigin(0,0);
     cursor = this.add.image(174,39, 'cursor'); 
     cursor.setOrigin(0,0);
 
@@ -234,8 +237,8 @@ function purchaseUpgrade(upgrade) {
 }
 
 function updateUI() {
-    moneyText.setText('Money: $' + Math.floor(money));
-    ecoScoreText.setText('Eco Score: ' + Math.floor(ecoScore * 100) + '%');
+    moneyText.setText('$' + Math.floor(money));
+    // ecoScoreText.setText('Eco Score: ' + Math.floor(ecoScore * 100) + '%');
 }
 
 function updateButtonAlpha() {
