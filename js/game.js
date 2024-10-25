@@ -178,8 +178,11 @@ function create() {
         upgrade.active = true;
     });
 
+    jauge = this.add.image(124,39, 'jaugeEco'); 
+    jauge.setOrigin(0,0);
     cursor = this.add.image(174,39, 'cursor'); 
     cursor.setOrigin(0,0);
+
 
     introScreen = this.add.image(0, 0, 'intro').setInteractive(); 
     introScreen.on('pointerdown',startGame)
