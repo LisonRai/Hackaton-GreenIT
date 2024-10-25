@@ -242,7 +242,7 @@ function create() {
     info6.setOrigin(1,0);
     info6.setVisible(false);
 
-    introScreen = this.add.image(0, 0, 'intro').setInteractive(); 
+    introScreen = this.add.image(57, 10, 'intro').setInteractive(); 
     introScreen.on('pointerdown',startGame)
     introScreen.setOrigin(0,0);
     introScreen.alpha = 0.8;
